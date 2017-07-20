@@ -12,6 +12,7 @@
 */
 
 Route::resource('topics', 'TopicsController');
+Route::resource('addresses', 'AddressController');
 
 Route::get('/', function () {
     return view('welcome');
