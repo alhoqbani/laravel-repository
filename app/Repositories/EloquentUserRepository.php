@@ -5,10 +5,10 @@ namespace App\Repositories;
 use App\Repositories\Contracts\UserRepository;
 use App\User;
 
-class EloquentUserRepository implements UserRepository
+class EloquentUserRepository extends RepositoryAbstract implements UserRepository
 {
-    public function all()
+    public function entity()
     {
-        return User::all();
+        return User::class;
     }
 }
