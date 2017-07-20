@@ -35,3 +35,18 @@ $factory->define(App\Topic::class, function (Faker\Generator $faker) {
         'slug' => str_slug($title),
     ];
 });
+
+/** @var \Illuminate\Database\Eloquent\Factory $factory */
+$factory->define(App\Post::class, function (Faker\Generator $faker) {
+
+    return [
+        'user_id' => function() {
+            return factory(\App\User::class)->create()->id;
+        },
+        
+        'topic_id' => function() {
+            return factory(\App\Topic::class)->create()->id;
+        },
+        'body' => $title = $faker->unique()->sentence(5, true),
+    ];
+});
