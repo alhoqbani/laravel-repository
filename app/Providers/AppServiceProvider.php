@@ -4,8 +4,8 @@ namespace App\Providers;
 
 use App\Repositories\Contracts\TopicRepository;
 use App\Repositories\Contracts\UserRepository;
-use App\Repositories\EloquentTopicRepository;
-use App\Repositories\EloquentUserRepository;
+use App\Repositories\Eloquent\EloquentTopicRepository;
+use App\Repositories\Eloquent\EloquentUserRepository;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider

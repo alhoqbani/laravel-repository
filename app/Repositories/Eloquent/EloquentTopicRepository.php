@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Repositories;
+namespace App\Repositories\Eloquent;
 
 use App\Repositories\Contracts\TopicRepository;
+use App\Repositories\RepositoryAbstract;
 use App\Topic;
 
 class EloquentTopicRepository extends RepositoryAbstract implements TopicRepository
