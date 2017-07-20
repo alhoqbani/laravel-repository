@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Repositories\Contracts\TopicRepository;
 use App\Repositories\Contracts\UserRepository;
-use App\Topic;
-use Illuminate\Http\Request;
 
 class TopicsController extends Controller
 {
@@ -33,6 +31,15 @@ class TopicsController extends Controller
     
     public function index()
     {
-        return  $this->topics->all();
+        $this->users->update(2, [
+            'name'     => 'Update User',
+            'email'    => 'updateUser@example.com',
+            'password' => bcrypt(123123),
+        ]);
+
+        return $this->users->findWhere('name', 'Hamoud Alhoqbani');
+        return $this->users->paginate();
+        
+        return $this->users->all();
     }
 }
