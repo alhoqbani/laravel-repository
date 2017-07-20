@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Repositories\Contracts\TopicRepository;
 use App\Repositories\Contracts\UserRepository;
 use App\Repositories\Eloquent\Criteria\IsLive;
+use App\Repositories\Eloquent\Criteria\LatestFirst;
 
 class TopicsController extends Controller
 {
@@ -33,6 +34,9 @@ class TopicsController extends Controller
     public function index()
     {
         $this->topics->update(3, ['live' => false]);
-        return $this->topics->withCriteria(new IsLive())->all();
+        return $this->topics->withCriteria(
+            new IsLive(),
+            new LatestFirst()
+        )->all();
     }
 }

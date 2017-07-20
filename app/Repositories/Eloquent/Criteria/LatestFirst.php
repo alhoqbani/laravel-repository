@@ -4,11 +4,11 @@ namespace App\Repositories\Eloquent\Criteria;
 
 use App\Repositories\Criteria\CriterionInterface;
 
-class IsLive implements CriterionInterface
+class LatestFirst implements CriterionInterface
 {
     
     public function apply($model)
     {
-        return $model->live();
+        return $model->latest();
     }
 }
