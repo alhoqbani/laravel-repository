@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Repositories\Contracts\GeneralRepository;
 use App\Repositories\Criteria\CriteriaInterface;
 use App\Repositories\Criteria\CriterionInterface;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 abstract class RepositoryAbstract implements GeneralRepository, CriteriaInterface
 {
@@ -28,7 +29,15 @@ abstract class RepositoryAbstract implements GeneralRepository, CriteriaInterfac
     
     public function find($id)
     {
-        return $this->model->find($id);
+        $model = $this->model->find($id);
+        if ( ! $model) {
+            throw (new ModelNotFoundException)->setModel(
+                get_class($this->model->getModel()),
+                $id
+            );
+        }
+        
+        return $model;
     }
     
     public function findWhere($column, $value)
@@ -38,7 +47,15 @@ abstract class RepositoryAbstract implements GeneralRepository, CriteriaInterfac
     
     public function findWhereFirst($column, $value)
     {
-        return $this->model->where($column, $value)->first();
+        $model = $this->model->where($column, $value)->first();
+        if ( ! $model) {
+            throw (new ModelNotFoundException)->setModel(
+                get_class($this->model->getModel()),
+                $column . ': ' . $value
+            );
+        }
+        
+        return $model;
     }
     
     public function paginate($perPage = 10)
@@ -49,12 +66,14 @@ abstract class RepositoryAbstract implements GeneralRepository, CriteriaInterfac
     public function create(array $attributes)
     {
         $this->model->unguard();
+        
         return $this->model->create($attributes);
     }
     
     public function update($id, array $attributes)
     {
         $this->model->unguard();
+        
         return $this->model->find($id)->update($attributes);
     }
     
