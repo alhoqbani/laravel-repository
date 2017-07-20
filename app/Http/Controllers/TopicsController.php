@@ -4,16 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Repositories\Contracts\TopicRepository;
 use App\Repositories\Contracts\UserRepository;
+use App\Repositories\Eloquent\Criteria\IsLive;
 
 class TopicsController extends Controller
 {
     
     /**
-     * @var \App\Repositories\EloquentTopicRepository
+     * @var \App\Repositories\Eloquent\EloquentTopicRepository
      */
     protected $topics;
     /**
-     * @var \App\Repositories\EloquentUserRepository
+     * @var \App\Repositories\Eloquent\EloquentUserRepository
      */
     protected $users;
     
@@ -31,15 +32,7 @@ class TopicsController extends Controller
     
     public function index()
     {
-        $this->users->update(2, [
-            'name'     => 'Update User',
-            'email'    => 'updateUser@example.com',
-            'password' => bcrypt(123123),
-        ]);
-
-        return $this->users->findWhere('name', 'Hamoud Alhoqbani');
-        return $this->users->paginate();
-        
-        return $this->users->all();
+        $this->topics->update(3, ['live' => false]);
+        return $this->topics->withCriteria(new IsLive())->all();
     }
 }

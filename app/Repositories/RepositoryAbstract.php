@@ -3,8 +3,10 @@
 namespace App\Repositories;
 
 use App\Repositories\Contracts\GeneralRepository;
+use App\Repositories\Criteria\CriteriaInterface;
+use App\Repositories\Criteria\CriterionInterface;
 
-abstract class RepositoryAbstract implements GeneralRepository
+abstract class RepositoryAbstract implements GeneralRepository, CriteriaInterface
 {
     
     /**
@@ -21,7 +23,7 @@ abstract class RepositoryAbstract implements GeneralRepository
     
     public function all()
     {
-        return $this->model->all();
+        return $this->model->get();
     }
     
     public function find($id)
@@ -52,12 +54,24 @@ abstract class RepositoryAbstract implements GeneralRepository
     
     public function update($id, array $attributes)
     {
+        $this->model->unguard();
         return $this->model->find($id)->update($attributes);
     }
     
     public function delete($id)
     {
         return $this->model->find($id)->delete();
+    }
+    
+    public function withCriteria(CriterionInterface ...$criteria)
+    {
+        $criteria = array_flatten($criteria);
+        
+        foreach ($criteria as $criterion) {
+            $this->model = $criterion->apply($this->model);
+        }
+        
+        return $this;
     }
     
     protected function resolveModel()
