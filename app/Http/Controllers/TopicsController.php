@@ -34,13 +34,13 @@ class TopicsController extends Controller
     
     public function index()
     {
-        $this->topics->update(3, ['live' => false]);
          $topics = $this->topics->withCriteria(
             new IsLive(),
-            new LatestFirst(),
-            new ByUser(1)
+            new LatestFirst()
+//            new ByUser(1)
         )->all();
         
+         $topics->load(['posts', 'posts.user']);
         return view('topics.index', compact('topics'));
     }
 }

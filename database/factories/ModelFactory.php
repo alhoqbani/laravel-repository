@@ -47,6 +47,6 @@ $factory->define(App\Post::class, function (Faker\Generator $faker) {
         'topic_id' => function() {
             return factory(\App\Topic::class)->create()->id;
         },
-        'body' => $title = $faker->unique()->sentence(5, true),
+        'body' => $title = $faker->realText(),
     ];
 });
