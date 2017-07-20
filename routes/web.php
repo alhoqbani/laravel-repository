@@ -11,6 +11,8 @@
 |
 */
 
+Route::resource('topics', 'TopicsController');
+
 Route::get('/', function () {
     return view('welcome');
 });
