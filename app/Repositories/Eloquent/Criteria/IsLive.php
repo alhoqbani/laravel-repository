@@ -10,6 +10,6 @@ class IsLive implements CriterionInterface
     
     public function apply(Model $model)
     {
-        return $model->where('live', true);
+        return $model->live();
     }
 }
