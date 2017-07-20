@@ -11,11 +11,11 @@ class TopicsController extends Controller
 {
     
     /**
-     * @var \App\Repositories\Contracts\TopicRepository
+     * @var \App\Repositories\EloquentTopicRepository
      */
     protected $topics;
     /**
-     * @var \App\Repositories\Contracts\UserRepository
+     * @var \App\Repositories\EloquentUserRepository
      */
     protected $users;
     
@@ -33,6 +33,6 @@ class TopicsController extends Controller
     
     public function index()
     {
-        return  $this->users->all();
+        return  $this->topics->all();
     }
 }

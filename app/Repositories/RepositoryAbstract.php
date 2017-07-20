@@ -2,7 +2,9 @@
 
 namespace App\Repositories;
 
-abstract class RepositoryAbstract
+use App\Repositories\Contracts\GeneralRepository;
+
+abstract class RepositoryAbstract implements GeneralRepository
 {
     protected $model;
     
@@ -17,7 +19,6 @@ abstract class RepositoryAbstract
     {
         return $this->model->all();
     }
-    
     
     protected function resolveModel()
     {
