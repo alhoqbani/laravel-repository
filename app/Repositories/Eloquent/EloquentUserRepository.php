@@ -12,4 +12,14 @@ class EloquentUserRepository extends RepositoryAbstract implements UserRepositor
     {
         return User::class;
     }
+    
+    public function createAddress($userID, $attributes)
+    {
+        $this->find($userID)->addresses()->create($attributes);
+    }
+    
+    public function deleteAddress($userID, $addressId)
+    {
+        $this->find($userID)->addresses()->findOrFail($addressId)->delete();
+    }
 }
